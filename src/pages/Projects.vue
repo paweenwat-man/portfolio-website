@@ -67,8 +67,7 @@ const projects = [
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   padding: 16px;
   grid-gap: 24px;
-  perspective: 2000px;
-
+  perspective: 100rem;
   a, div {
     color: inherit;
     text-decoration: none;
