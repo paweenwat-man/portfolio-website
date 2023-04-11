@@ -4,6 +4,12 @@ import { ref } from "vue";
 import emailjs from '@emailjs/browser'
 import Recaptcha from '../components/Recaptcha.vue';
 
+import { useForm, useField } from 'vee-validate'
+import TextInput from "../components/TextInput.vue";
+import EmailInput from "../components/EmailInput.vue";
+import MessageInput from "../components/MessageInput.vue";
+import * as yup from 'yup'
+
 const recaptchaToken = ref(null);
 
 const name = ref('');
@@ -13,6 +19,25 @@ const message = ref('');
 
 const textAreaRef = ref()
 const recaptchaRef = ref()
+
+const schema = yup.object({
+  Name: yup.string().required().trim(),
+  Email: yup.string().required().email().trim(),
+  Company: yup.string().required().trim(),
+  Message: yup.string().required().trim(),
+  // recaptchaToken: yup.string().required()
+})
+
+const { handleSubmit, errors } = useForm({
+  validationSchema: schema,
+  // initialValues: {
+  //   name: '',
+  //   email: '',
+  //   company: '',
+  //   message: '',
+  //   recaptchaToken: ''
+  // }
+})
 
 const resizeTextArea = () => {
   textAreaRef.value.style.height = 'auto';
@@ -30,30 +55,45 @@ const resetToken = () => {
 
 const sendEmail = async () => {
 
+
+};
+
+function onInvalidSubmit({ values, errors, results }) {
+  console.log(values); // current form values
+  console.log(errors); // a map of field names and their first error message
+  console.log(results); // a detailed map of field names and their validation results
+}
+
+const onSubmit = handleSubmit((values)=>{
+  if (!recaptchaToken.value) {
+    alert('Please verify that you are not a robot!');
+    return;
+  }
+  // alert(JSON.stringify(values));
   emailjs.send(
     import.meta.env.VITE_EMAILJS_SERVICE_ID,
     import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
     {
-      name: name.value,
-      email: email.value,
-      message: message.value,
-      company: company.value,
+      name: values.Name,
+      email: values.Email,
+      message: values.Message,
+      company: values.Company,
       'g-recaptcha-response': recaptchaToken.value
     },
     import.meta.env.VITE_EMAILJS_PUBLIC_KEY
   ).then(()=>{
     alert('Thank you for your message!');
-    name.value = '';
-    email.value = '';
-    company.value = '';
-    message.value = '';
-    recaptchaToken.value = null;
-    recaptchaRef.value.actionReset();
   }).catch((err)=>{
     alert('Something went wrong!');
     console.log(err);
-  });
-};
+  }).finally(()=>{
+    recaptchaToken.value = null;
+    recaptchaRef.value.actionReset();
+  })
+
+}, onInvalidSubmit);
+
+
 
 const socials = [
   {
@@ -72,14 +112,14 @@ const socials = [
   {
     name: 'LinkedIn',
     icon: 'fa-brands fa-linkedin',
-    link: 'https://www.linkedin.com/in/paweenwat-maneechai-10391626a/',
+    link: 'https://www.linkedin.com/in/paweenwat-maneechai/',
     color: '#0077b5'
   },
   {
     name: 'GitHub',
     icon: 'fa-brands fa-github',
     link: 'https://github.com/winrecker',
-    color: '#211F1F'
+    color: '#ffffff'
   },
   {
     name: 'YouTube',
@@ -93,13 +133,19 @@ const socials = [
 
 <template>
   <div class="container">
-    <form class="form" @submit.prevent="sendEmail">
-      <input type="text" name="from_name" placeholder="Name" v-model="name">
-      <input type="email" name="from_email" placeholder="Email" v-model="email">
-      <input type="text" name="company_name" placeholder="Company" v-model="company">
-      <textarea name="message" placeholder="Message" v-model="message" rows="6" ref="textAreaRef" @focus="resizeTextArea" @keyup="resizeTextArea"></textarea>
+    <h1 class="title">Get in touch</h1>
+    <form class="form" @submit="onSubmit">
+      <!-- <input type="text" name="name" placeholder="Name" v-model="name">
+      <input type="email" name="email" placeholder="Email" v-model="email">
+      <input type="text" name="company" placeholder="Company" v-model="company"> -->
+      <!-- <textarea name="message" placeholder="Message" v-model="message" rows="6" ref="textAreaRef" @focus="resizeTextArea" @keyup="resizeTextArea"></textarea> -->
+      <TextInput name="Name" placeholder="Name"/>
+      <EmailInput name="Email" placeholder="Email"/>
+      <TextInput name="Company" placeholder="Company"/>
+      <MessageInput name="Message" placeholder="Message"/>
+      <input type="hidden" name="recaptchaToken" v-model="recaptchaToken"/>
       <Recaptcha class="recaptcha" ref="recaptchaRef" @verify="getToken" @expire="resetToken"/>
-      <button :disabled="recaptchaToken === null && !email && !company && !name" type="submit">Send</button>
+      <button type="submit">Send</button>
     </form>
     <div class="social">
       <a v-for="social in socials" :href="social.link" target="_blank">
@@ -112,6 +158,9 @@ const socials = [
 
 <style lang="scss" scoped>
 .container {
+  background: url('../assets/contact_background.jpg') no-repeat top center fixed;
+  background-size: cover;
+  // background-color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,6 +170,11 @@ const socials = [
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
+}
+
+.title {
+  color: white;
+  margin: 12px;
 }
 
 .contact {
@@ -141,13 +195,15 @@ const socials = [
     grid-template-columns:  repeat(auto-fit, minmax(160px, 1fr));
   }
   a {
-    color: inherit;
+    color: white;
     text-decoration: none;
-    background-color: #eee;
+    background-color: #333;
     padding: 4px 12px;
+    border: 1px solid #666;
     border-radius: 8px;
     display: grid;
     justify-items: center;
+    align-items: center;
     grid-template-columns: 30px 1fr;
     span {
       margin-left: 8px;
@@ -157,42 +213,33 @@ const socials = [
 }
 
 .form {
-  margin-top: 12px;
   display: grid;
+  width: 100%;
+  grid-gap: 6px;
   grid-auto-flow: row;
-  padding: 12px 24px;
-  background-color: darkslateblue;
   box-sizing: border-box;
-  @media screen and (max-width: 480px) {
-    margin: 0;
-    width: 100%;
+  padding: 0 18px;
 
-  }
-  input {
-    margin: 12px 0;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  textarea {
-    margin: 12px 0;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  @media screen and (min-width: 480px) {
+    padding: 30px;
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border: 1px solid #666;
+    backdrop-filter: blur(8px);
   }
   button {
-    margin: 12px 0;
+    font-size: 1.2em;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     box-sizing: border-box;
     color: white;
-    background-color: #333;
+    background-color: rgba(127, 127, 127, 0.2);
     cursor: pointer;
     &:disabled {
       background-color: #ccc;
+      color: black;
       cursor: not-allowed;
     }
   }
@@ -200,6 +247,9 @@ const socials = [
     display: flex;
     justify-content: center;
     align-items: center;
+    div {
+      width: 100% !important;
+    }
   }
 }
 
