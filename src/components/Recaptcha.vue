@@ -6,21 +6,21 @@ import { VueRecaptcha, useRecaptcha } from "vue3-recaptcha-v2";
 const { resetRecaptcha } = useRecaptcha();
 const recaptchaWidget = ref(null);
 
-const emitter = defineEmits(['verify','expire','fail'])
+const emit = defineEmits(['verify','expire','fail'])
 
 const callbackVerify = (response) => {
   // console.log(response);
-  emitter("verify", response);
+  emit("verify", response);
 };
 
 const callbackExpired = () => {
   console.log("expired!");
-  emitter("expire");
+  emit("expire");
 };
 
 const callbackFail = () => {
   console.log("fail");
-  emitter("fail");
+  emit("fail");
 };
 
 // Reset Recaptcha action
