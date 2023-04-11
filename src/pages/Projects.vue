@@ -67,24 +67,24 @@ const projects = [
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 16px;
   grid-gap: 24px;
-  perspective: 100rem;
+  // perspective: 100rem;
   @media screen and (max-width: 480px) {
     grid-template-columns: repeat(auto-fit, 100%);
   }
   a, div {
     color: inherit;
     text-decoration: none;
-    transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition: all 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     background-color: #112;
     border-radius: 12px;
     border: 1px solid white;
     box-sizing: border-box;
     aspect-ratio: 16/10;
-    transform-style: preserve-3d;
+    // transform-style: preserve-3d;
     // backface-visibility: hidden;
     &:hover {
-      // transform: scale(1.025);
-      transform: rotateY(180deg);
+      transform: scale(1.025);
+      // transform: rotateY(180deg);
     }
     img {
       height: 100%;
