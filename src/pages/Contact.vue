@@ -205,6 +205,13 @@ const socials = [
     justify-items: center;
     align-items: center;
     grid-template-columns: 30px 1fr;
+    transition: box-shadow 0.1s ease-in-out;
+    &:hover {
+      box-shadow: inset 0 0 60px 2px rgba(255, 255, 255, 0.2);
+    }
+    &:active {
+      box-shadow: inset 0 0 60px 2px rgba(0, 0, 0, 0.2);
+    }
     span {
       margin-left: 8px;
       font-size: 1.25em;
@@ -232,15 +239,22 @@ const socials = [
     font-size: 1.2em;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid white;
+    border: 1px solid #666;
     box-sizing: border-box;
     color: white;
-    background-color: rgba(127, 127, 127, 0.2);
+    background-color: #333;
     cursor: pointer;
+    transition: box-shadow 0.1s ease-in-out;
     &:disabled {
       background-color: #ccc;
       color: black;
       cursor: not-allowed;
+    }
+    &:hover {
+      box-shadow: inset 0 0 60px 2px rgba(255, 255, 255, 0.2);
+    }
+    &:active {
+      box-shadow: inset 0 0 60px 2px rgba(0, 0, 0, 0.2);
     }
   }
   .recaptcha {
