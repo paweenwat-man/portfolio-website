@@ -30,10 +30,6 @@ import Contact from './pages/Contact.vue';
   top: 0;
 }
 
-
-#contact {
-  background-color: #949F32;
-}
 #personal {
   display: block;
   font-size: 30px;
