@@ -24,27 +24,51 @@ const { errorMessage, value } = useField(
 
 <template>
   <div>
-    <input type="text" :placeholder="placeholder" v-model="value"/>
-    <span>{{ errorMessage }}</span>
+    <div>
+      <input type="text" :placeholder="placeholder" v-model="value"/>
+      <span class="underline"></span>
+    </div>
+    <span class="error">{{ errorMessage }}</span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-div {
-  input {
+.container {
+  width: 100%;
+  div {
+    display: table;
     width: 100%;
-    padding: 8px 12px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    font-size: 1.05em;
-    border: 1px solid #666;
-    background-color: #111;
-    color: white;
+    position: relative;
+    input {
+      outline: none;
+      width: 100%;
+      padding: 8px 12px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 1.05em;
+      border: 1px solid #666;
+      background-color: #111;
+      color: white;
+    }
+    .underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #36f;
+      transition: width 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+    input:focus + .underline {
+      width: 100%;
+    }
   }
-  span {
-    display: block;
+  .error {
+    // display: block;
+    width: 100%;
+    display: flex;
     color: #f33;
-    text-shadow: black 0 0 10px;
+    text-shadow: black 0 0 8px;
     margin: 2px 0 0 4px;
   }
 }

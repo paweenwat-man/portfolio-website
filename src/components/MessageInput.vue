@@ -1,30 +1,52 @@
 <template>
   <div>
-    <textarea ref="target" rows="6" v-model="value" :placeholder="placeholder" @focus="autoResize" @keyup="autoResize"></textarea>
-    <span>{{ errorMessage }}</span>
+    <div>
+      <textarea ref="target" rows="6" v-model="value" :placeholder="placeholder" @focus="autoResize" @keyup="autoResize"></textarea>
+      <span class="underline"></span>
+    </div>
+    <span class="error">{{ errorMessage }}</span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-div {
-  textarea {
+.container {
+  width: 100%;
+  div {
+    display: table;
     width: 100%;
-    padding: 8px 12px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    font-size: 1.05em;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid #666;
-    background-color: #111;
-    color: white;
-    @media screen and (max-width: 480px) {
+    position: relative;
+    textarea {
       resize: vertical;
+      outline: none;
+      width: 100%;
+      padding: 8px 12px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 1.05em;
+      border: 1px solid #666;
+      background-color: #111;
+      color: white;
+    }
+    .underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #36f;
+      margin: 4px 0;
+      transition: width 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+    textarea:focus + .underline {
+      width: 100%;
     }
   }
-  span {
-    display: block;
+  .error {
+    // display: block;
+    width: 100%;
+    display: flex;
     color: #f33;
-    text-shadow: black 0 0 10px;
+    text-shadow: black 0 0 8px;
     margin: 2px 0 0 4px;
   }
 }
