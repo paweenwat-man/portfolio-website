@@ -64,10 +64,13 @@ const projects = [
   position: relative;
   display: grid;
   font-size: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 16px;
   grid-gap: 24px;
   perspective: 100rem;
+  @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, 100%);
+  }
   a, div {
     color: inherit;
     text-decoration: none;
@@ -76,7 +79,7 @@ const projects = [
     border-radius: 12px;
     border: 1px solid white;
     box-sizing: border-box;
-
+    aspect-ratio: 16/10;
     transform-style: preserve-3d;
     // backface-visibility: hidden;
     &:hover {
@@ -84,7 +87,7 @@ const projects = [
       transform: rotateY(180deg);
     }
     img {
-      height: 300px;
+      height: 100%;
       width: 100%;
       padding: 8px;
       object-fit: cover;
