@@ -158,7 +158,8 @@ const socials = [
 
 <style lang="scss" scoped>
 .container {
-  background: url('../assets/contact_background.jpg') no-repeat top center fixed;
+  color: white;
+  background: url('../assets/contact_background.jpg') no-repeat center center fixed;
   background-size: cover;
   // background-color: #333;
   display: flex;
@@ -173,7 +174,7 @@ const socials = [
 }
 
 .title {
-  color: white;
+  // color: white;
   margin: 12px;
 }
 
@@ -226,14 +227,16 @@ const socials = [
   grid-auto-flow: row;
   box-sizing: border-box;
   padding: 0 18px;
-
   @media screen and (min-width: 480px) {
     padding: 30px;
-    width: fit-content;
+    width: 400px;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     border: 1px solid #666;
     backdrop-filter: blur(8px);
+  }
+  @media screen and (min-width: 768px) {
+    width: 600px;
   }
   button {
     font-size: 1.2em;
