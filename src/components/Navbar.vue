@@ -1,30 +1,21 @@
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 
-export default {
-  name: 'portfolio',
-  setup() {
-    const target = ref()
-    const sticking = ref(false)
+const target = ref()
+const sticking = ref(false)
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // console.log(entry)
-        sticking.value = !entry.isIntersecting
-      }, 
-      { threshold: 0.0 }
-    )
+const observer = new IntersectionObserver(
+  ([entry]) => {
+    // console.log(entry)
+    sticking.value = !entry.isIntersecting
+  }, 
+  { threshold: 0.0 }
+)
 
-    onMounted(()=>{
-      observer.observe(target.value)
-    })
+onMounted(()=>{
+  observer.observe(target.value)
+})
 
-    return {
-      target,
-      sticking
-    }
-  }
-}
 </script>
 
 <template>
