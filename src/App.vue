@@ -13,7 +13,7 @@ import Contact from './pages/Contact.vue';
     <About/>
   </div>
   <div id="work-experience">
-    Work Experience
+    <!-- Work Experience -->
   </div>
   <div id="projects">
     <Projects/>
