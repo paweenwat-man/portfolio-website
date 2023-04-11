@@ -53,8 +53,10 @@ const projects = [
 
 <style lang="scss" scoped>
 .container {
+  background: url('../assets/contact_background.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: white;
-  background-color: #224;
+  // background-color: #224;
 }
 .title {
   text-align: center;
@@ -74,11 +76,12 @@ const projects = [
   a, div {
     color: inherit;
     text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    background-color: #112;
+    transition: transform 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    background-color: rgba($color: #000000, $alpha: 0.2);
     border-radius: 12px;
-    border: 1px solid white;
+    border: 1px solid #666;
     box-sizing: border-box;
+    backdrop-filter: blur(8px);
     aspect-ratio: 16/10;
     // transform-style: preserve-3d;
     // backface-visibility: hidden;
