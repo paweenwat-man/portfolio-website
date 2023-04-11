@@ -15,8 +15,10 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "vee-validate": "^4.8.4",
     "vue": "^3.2.47",
-    "vue3-recaptcha-v2": "^1.0.1"
+    "vue3-recaptcha-v2": "^1.0.1",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
