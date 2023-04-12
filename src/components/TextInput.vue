@@ -1,6 +1,5 @@
 <script setup>
 
-import { defineProps } from 'vue';
 import { useField } from 'vee-validate';
 import * as yup from 'yup';
 

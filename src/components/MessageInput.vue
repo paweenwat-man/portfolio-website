@@ -1,3 +1,34 @@
+<script setup>
+
+import { ref } from 'vue';
+import { useField } from 'vee-validate';
+import * as yup from 'yup';
+
+const target = ref(null);
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
+  placeholder: {
+    type: String,
+    required: false,
+  }
+});
+
+const { errorMessage, value } = useField(
+  props.name,
+  yup.string().required()
+);
+
+const autoResize = () => {
+  target.value.style.height = 'auto';
+  target.value.style.height = target.value.scrollHeight + 5 + 'px';
+}
+
+</script>
+
 <template>
   <div>
     <div>
@@ -51,34 +82,3 @@
   }
 }
 </style>
-
-<script setup>
-
-import { defineProps, ref } from 'vue';
-import { useField } from 'vee-validate';
-import * as yup from 'yup';
-
-const target = ref(null);
-
-const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  placeholder: {
-    type: String,
-    required: false,
-  }
-});
-
-const { errorMessage, value } = useField(
-  props.name,
-  yup.string().required()
-);
-
-const autoResize = () => {
-  target.value.style.height = 'auto';
-  target.value.style.height = target.value.scrollHeight + 5 + 'px';
-}
-
-</script>
