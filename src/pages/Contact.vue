@@ -159,9 +159,6 @@ const socials = [
 <style lang="scss" scoped>
 .container {
   color: white;
-  background: url('../assets/contact_background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  // background-color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -246,12 +243,12 @@ const socials = [
     box-sizing: border-box;
     color: white;
     background-color: #333;
-    cursor: pointer;
+    // cursor: pointer;
     transition: box-shadow 0.1s ease-in-out;
     &:disabled {
       background-color: #ccc;
       color: black;
-      cursor: not-allowed;
+      // cursor: not-allowed;
     }
     &:hover {
       box-shadow: inset 0 0 60px 2px rgba(255, 255, 255, 0.2);

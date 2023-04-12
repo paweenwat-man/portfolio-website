@@ -53,10 +53,7 @@ const projects = [
 
 <style lang="scss" scoped>
 .container {
-  background: url('../assets/contact_background.jpg') no-repeat center center fixed;
-  background-size: cover;
   color: white;
-  // background-color: #224;
 }
 .title {
   text-align: center;
@@ -76,7 +73,7 @@ const projects = [
   a, div {
     color: inherit;
     text-decoration: none;
-    transition: transform 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     background-color: rgba($color: #000000, $alpha: 0.2);
     border-radius: 12px;
     border: 1px solid #666;
@@ -88,6 +85,9 @@ const projects = [
     &:hover {
       transform: scale(1.025);
       // transform: rotateY(180deg);
+    }
+    &:active {
+      transform: scale(0.975);
     }
     img {
       height: 100%;
