@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  cursor: none;
 }
 
 :root {
@@ -12,6 +13,8 @@
 html, body {
   scroll-behavior: smooth;
   scroll-padding-top: 50px;
+  background: url('./assets/contact_background.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 ::-webkit-scrollbar {
