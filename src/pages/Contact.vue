@@ -124,7 +124,7 @@ const socials = [
   {
     name: 'YouTube',
     icon: 'fa-brands fa-youtube',
-    link: 'https://www.youtube.com/@user-iw5vh8vi3h/',
+    link: 'https://www.youtube.com/channel/UCEIqZusIkYtPkoCU3j2l3Zw',
     color: '#ff0000'
   }
 ]
