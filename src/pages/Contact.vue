@@ -2,20 +2,15 @@
 
 import { ref } from "vue";
 import emailjs from '@emailjs/browser'
-import Recaptcha from '../components/Recaptcha.vue';
+import Recaptcha2 from '../components/Recaptcha2.vue';
 
-import { useForm, useField } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import TextInput from "../components/TextInput.vue";
 import EmailInput from "../components/EmailInput.vue";
 import MessageInput from "../components/MessageInput.vue";
 import * as yup from 'yup'
 
 const recaptchaToken = ref(null);
-
-const name = ref('');
-const email = ref('');
-const company = ref('');
-const message = ref('');
 
 const textAreaRef = ref()
 const recaptchaRef = ref()
@@ -25,18 +20,18 @@ const schema = yup.object({
   Email: yup.string().required().email().trim(),
   Company: yup.string().required().trim(),
   Message: yup.string().required().trim(),
-  // recaptchaToken: yup.string().required()
+  RecaptchaToken: yup.string().required().trim(),
 })
 
-const { handleSubmit, errors } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: schema,
-  // initialValues: {
-  //   name: '',
-  //   email: '',
-  //   company: '',
-  //   message: '',
-  //   recaptchaToken: ''
-  // }
+  initialValues: {
+    Name: '',
+    Email: '',
+    Company: '',
+    Message: '',
+    RecaptchaToken: ''
+  }
 })
 
 const resizeTextArea = () => {
@@ -44,52 +39,37 @@ const resizeTextArea = () => {
   textAreaRef.value.style.height = textAreaRef.value.scrollHeight + 'px';
 }
 
-const getToken = (token) => {
-  console.log(token)
-  recaptchaToken.value = token;
-};
-
-const resetToken = () => {
-  recaptchaToken.value = null;
-};
-
-const sendEmail = async () => {
-
-
-};
-
 function onInvalidSubmit({ values, errors, results }) {
   console.log(values); // current form values
   console.log(errors); // a map of field names and their first error message
   console.log(results); // a detailed map of field names and their validation results
 }
 
-const onSubmit = handleSubmit((values)=>{
-  if (!recaptchaToken.value) {
-    alert('Please verify that you are not a robot!');
-    return;
-  }
-  // alert(JSON.stringify(values));
-  emailjs.send(
-    import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    {
-      name: values.Name,
-      email: values.Email,
-      message: values.Message,
-      company: values.Company,
-      'g-recaptcha-response': recaptchaToken.value
-    },
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  ).then(()=>{
-    alert('Thank you for your message!');
-  }).catch((err)=>{
-    alert('Something went wrong!');
-    console.log(err);
-  }).finally(()=>{
-    recaptchaToken.value = null;
-    recaptchaRef.value.actionReset();
+const onSubmit = handleSubmit((values, { resetForm })=>{
+  return new Promise(resolve => {
+      emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      {
+        name: values.Name,
+        email: values.Email,
+        message: values.Message,
+        company: values.Company,
+        'g-recaptcha-response': values.RecaptchaToken
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then(()=>{
+      alert('Thank you for your message!');
+    }).catch((err)=>{
+      alert('Something went wrong!');
+      console.log(err);
+    }).finally(()=>{
+      recaptchaRef.value.reset();
+      resetForm();
+      resolve();
+    })
   })
+
 
 }, onInvalidSubmit);
 
@@ -118,7 +98,7 @@ const socials = [
   {
     name: 'GitHub',
     icon: 'fa-brands fa-github',
-    link: 'https://github.com/winrecker',
+    link: 'https://github.com/paweenwat-man',
     color: '#ffffff'
   },
   {
@@ -126,6 +106,12 @@ const socials = [
     icon: 'fa-brands fa-youtube',
     link: 'https://www.youtube.com/channel/UCEIqZusIkYtPkoCU3j2l3Zw',
     color: '#ff0000'
+  },
+  {
+    name: 'TikTok',
+    icon: 'fa-brands fa-tiktok',
+    link: 'https://www.tiktok.com/@masterminddev99',
+    color: '#000000'
   }
 ]
 
@@ -144,8 +130,9 @@ const socials = [
       <TextInput name="Company" placeholder="Company"/>
       <MessageInput name="Message" placeholder="Message"/>
       <input type="hidden" name="recaptchaToken" v-model="recaptchaToken"/>
-      <Recaptcha class="recaptcha" ref="recaptchaRef" @verify="getToken" @expire="resetToken"/>
-      <button type="submit">Send</button>
+      <!-- <Recaptcha class="recaptcha" ref="recaptchaRef" @verify="getToken" @expire="resetToken"/> -->
+      <Recaptcha2 ref="recaptchaRef" class="recaptcha" name="RecaptchaToken"/>
+      <button type="submit" :disabled="isSubmitting">{{ isSubmitting ? "Sending..." : "Send" }}</button>
     </form>
     <div class="social">
       <a v-for="social in socials" :href="social.link" target="_blank">

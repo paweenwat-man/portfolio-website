@@ -9,7 +9,6 @@ import Contact from './pages/Contact.vue';
 </script>
 
 <template>
-  <Cursor/>
   <Navbar/>
   <div id="about">
     <About/>
