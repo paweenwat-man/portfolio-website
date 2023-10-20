@@ -57,7 +57,7 @@
     // background-color:#072736;
     color:#fff;
     padding:30px 20px;
-    box-shadow:0px 0px 10px rgba(0,0,0,.5);
+    // box-shadow:0px 0px 10px rgba(0,0,0,.5);
     ul {
         list-style-type:none;
         border-left:2px solid #094a68;
