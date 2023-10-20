@@ -16,6 +16,11 @@ html, body {
   background-size: cover;
 }
 
+.title {
+  text-align: center;
+  padding: 12px 0;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

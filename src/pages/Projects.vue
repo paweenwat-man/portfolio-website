@@ -55,10 +55,6 @@ const projects = [
 .container {
   color: white;
 }
-.title {
-  text-align: center;
-  padding: 12px 0;
-}
 .projects {
   position: relative;
   display: grid;

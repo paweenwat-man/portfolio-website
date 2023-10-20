@@ -2,7 +2,7 @@
 
 import { ref } from "vue";
 import emailjs from '@emailjs/browser'
-import Recaptcha2 from '../components/Recaptcha2.vue';
+import Recaptcha from '../components/Recaptcha.vue';
 
 import { useForm } from 'vee-validate'
 import TextInput from "../components/TextInput.vue";
@@ -131,7 +131,7 @@ const socials = [
       <MessageInput name="Message" placeholder="Message"/>
       <input type="hidden" name="recaptchaToken" v-model="recaptchaToken"/>
       <!-- <Recaptcha class="recaptcha" ref="recaptchaRef" @verify="getToken" @expire="resetToken"/> -->
-      <Recaptcha2 ref="recaptchaRef" class="recaptcha" name="RecaptchaToken"/>
+      <Recaptcha ref="recaptchaRef" class="recaptcha" name="RecaptchaToken"/>
       <button type="submit" :disabled="isSubmitting">{{ isSubmitting ? "Sending..." : "Send" }}</button>
     </form>
     <div class="social">
@@ -155,11 +155,6 @@ const socials = [
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
-}
-
-.title {
-  // color: white;
-  margin: 12px;
 }
 
 .contact {

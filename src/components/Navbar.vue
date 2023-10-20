@@ -23,7 +23,7 @@ onMounted(()=>{
   <nav class="navbar" :class="{sticking}">
     <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#work-experience">Work Experience</a></li>
+      <li><a href="#experiences">Experiences</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>

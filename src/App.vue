@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.vue'
 import Projects from './pages/Projects.vue'
 import About from './pages/About.vue'
 import Contact from './pages/Contact.vue';
+import Experiences from './pages/Experiences.vue';
 
 </script>
 
@@ -13,8 +14,8 @@ import Contact from './pages/Contact.vue';
   <div id="about">
     <About/>
   </div>
-  <div id="work-experience">
-    <!-- Work Experience -->
+  <div id="experiences">
+    <Experiences/>
   </div>
   <div id="projects">
     <Projects/>
