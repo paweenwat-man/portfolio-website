@@ -64,7 +64,7 @@ const onSubmit = handleSubmit((values, { resetForm })=>{
       alert('Something went wrong!');
       console.log(err);
     }).finally(()=>{
-      recaptchaRef.value.reset();
+      // recaptchaRef.value.reset();
       resetForm();
       resolve();
     })

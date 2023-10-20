@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, onUnmounted, defineProps, defineEmits, ref } from "vue";
+import { onMounted, onUnmounted, defineProps, defineEmits, ref, watch } from "vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 
@@ -70,6 +70,12 @@ onUnmounted(() => {
     const script = document.querySelector(`script[src="${RECAPTCHA_URL}"]`);
     document.body.removeChild(script);
 })
+
+watch(value, (oldValue, newValue) => {
+    if (newValue) {
+        reset();
+    }
+});
 
 </script>
 
