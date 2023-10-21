@@ -19,7 +19,7 @@ const props = defineProps({
 
 const emits = defineEmits(['reset']);
 
-const { errorMessage, value } = useField(
+const { errorMessage, value, setErrors } = useField(
     props.name,
     yup.string().required().trim()
 );
@@ -27,7 +27,6 @@ const { errorMessage, value } = useField(
 const reset = () => {
     const grecaptcha = window.grecaptcha;
     grecaptcha.reset();
-    value.value = '';
 }
 
 defineExpose({ reset });
@@ -74,6 +73,7 @@ onUnmounted(() => {
 watch(value, (oldValue, newValue) => {
     if (newValue) {
         reset();
+        setErrors([]);
     }
 });
 

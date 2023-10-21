@@ -15,7 +15,10 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faFacebook, faLinkedin, faGithub, faYoutube, faEnvelope, faTiktok)
 
+import ToastPlugin from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-default.css'
+
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
-
+app.use(ToastPlugin)
 app.mount('#app')

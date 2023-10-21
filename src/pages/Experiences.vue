@@ -1,50 +1,37 @@
 <script setup>
 
+const experiences = [
+    {
+        date: "23th May 2023 - Current",
+        title: "Work in KlickerLab Co., Ltd.",
+        content: "Web Developer outsourced to work with Thailand government agencies.",
+    },
+    {
+        date: "3rd April 2023",
+        title: "Graduated from Kasetsart University Sri Racha Campus",
+        content: `2nd class honors in Bachelor of Engineering (Computer Engineering)
+        Full-Stack PHP-jQuery Developer worked with Job KUSRC job applying website.`,
+    },
+    {
+        date: "28th Nov 2022 - 17th March 2023",
+        title: "Internship at Geo-Informatics and Space Technology Development Agency (GISTDA)",
+        content: `Develop web application named "Development of space debris risk assessment system" and distributed task system for space conjunction calculation.
+        Tech Stack: React.js, Node.js, MySQL, Redis, Django REST Framework, Celery.`,
+    }
+]
+
 </script>
 
 <template>
     <div class="timeline">
         <h1 class="title">Work Experience & Education</h1>
         <ul>
-            <!-- <li>
-                <span>3rd January 2020</span>
+            <li v-for="experience in experiences">
+                <span>{{ experience.date }}</span>
                 <div class="content">
-                    <h3>What Is Lorem Ipsum?</h3>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                    </p>
-                </div>
-            </li> -->
-            <li>
-                <span>23th May 2023 - Current</span>
-                    <div class="content">
-                    <h3>Work in KlickerLab Co., Ltd.</h3>
-                    <p>
-                        Web Developer outsourced to work with government agencies.
-                    </p>
-                </div>
-            </li>
-            <li>
-                <span>3rd April 2023</span>
-                <div class="content">
-                    <h3>Graduated from Kasetsart University Sri Racha Campus</h3>
-                    <p>
-                        2nd class honors in Bachelor of Engineering (Computer Engineering)
-                    </p>
-                    <p>
-                        Full-Stack PHP-jQuery Developer worked with Job KUSRC job applying website.
-                    </p>
-                </div>
-            </li>
-            <li>
-                <span>28th Nov 2022 - 17th March 2023</span>
-                <div class="content">
-                    <h3>Internship at Geo-Informatics and Space Technology Development Agency (GISTDA)</h3>
-                    <p>
-                        Develop web application named "Development of space debris risk assessment system" and distributed task system for space conjunction calculation.
-                    </p>
-                    <p>
-                        Tech Stack: React.js, Node.js, MySQL, Redis, Django REST Framework, Celery.
+                    <h3>{{ experience.title }}</h3>
+                    <p v-for="line in experience.content.split(/[\r\n]+/)">
+                        {{ line }}
                     </p>
                 </div>
             </li>

@@ -10,9 +10,12 @@ import EmailInput from "../components/EmailInput.vue";
 import MessageInput from "../components/MessageInput.vue";
 import * as yup from 'yup'
 
-const recaptchaToken = ref(null);
+import { useToast } from 'vue-toast-notification';
 
-const textAreaRef = ref()
+const $toast = useToast({
+  position: 'top'
+})
+
 const recaptchaRef = ref()
 
 const schema = yup.object({
@@ -34,11 +37,6 @@ const { handleSubmit, isSubmitting } = useForm({
   }
 })
 
-const resizeTextArea = () => {
-  textAreaRef.value.style.height = 'auto';
-  textAreaRef.value.style.height = textAreaRef.value.scrollHeight + 'px';
-}
-
 function onInvalidSubmit({ values, errors, results }) {
   console.log(values); // current form values
   console.log(errors); // a map of field names and their first error message
@@ -59,19 +57,16 @@ const onSubmit = handleSubmit((values, { resetForm })=>{
       },
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     ).then(()=>{
-      alert('Thank you for your message!');
+      $toast.success('Thank you for your message!')
     }).catch((err)=>{
-      alert('Something went wrong!');
+      $toast.error('Something went wrong!')
       console.log(err);
     }).finally(()=>{
-      // recaptchaRef.value.reset();
       resetForm();
       resolve();
     })
   })
-
-
-}, onInvalidSubmit);
+});
 
 
 
@@ -80,7 +75,6 @@ const socials = [
     name: 'Email',
     icon: 'fa-solid fa-envelope',
     link: 'mailto:paweenwat.m@gmail.com',
-    // blue email color
     color: '#0078d4'
   },
   {
@@ -121,16 +115,10 @@ const socials = [
   <div class="container">
     <h1 class="title">Get in touch</h1>
     <form class="form" @submit="onSubmit">
-      <!-- <input type="text" name="name" placeholder="Name" v-model="name">
-      <input type="email" name="email" placeholder="Email" v-model="email">
-      <input type="text" name="company" placeholder="Company" v-model="company"> -->
-      <!-- <textarea name="message" placeholder="Message" v-model="message" rows="6" ref="textAreaRef" @focus="resizeTextArea" @keyup="resizeTextArea"></textarea> -->
       <TextInput name="Name" placeholder="Name"/>
       <EmailInput name="Email" placeholder="Email"/>
       <TextInput name="Company" placeholder="Company"/>
       <MessageInput name="Message" placeholder="Message"/>
-      <input type="hidden" name="recaptchaToken" v-model="recaptchaToken"/>
-      <!-- <Recaptcha class="recaptcha" ref="recaptchaRef" @verify="getToken" @expire="resetToken"/> -->
       <Recaptcha ref="recaptchaRef" class="recaptcha" name="RecaptchaToken"/>
       <button type="submit" :disabled="isSubmitting">{{ isSubmitting ? "Sending..." : "Send" }}</button>
     </form>
