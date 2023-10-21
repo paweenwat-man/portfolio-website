@@ -59,7 +59,7 @@ const projects = [
   position: relative;
   display: grid;
   font-size: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   padding: 16px;
   grid-gap: 24px;
   // perspective: 100rem;
