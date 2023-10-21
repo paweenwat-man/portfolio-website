@@ -65,4 +65,10 @@ onMounted(()=>{
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    display: none;
+  }
+}
 </style>
