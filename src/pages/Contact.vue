@@ -8,6 +8,7 @@ import { useForm } from 'vee-validate'
 import TextInput from "../components/TextInput.vue";
 import EmailInput from "../components/EmailInput.vue";
 import MessageInput from "../components/MessageInput.vue";
+import axios from 'axios'
 import * as yup from 'yup'
 
 import { useToast } from 'vue-toast-notification';
@@ -45,18 +46,13 @@ function onInvalidSubmit({ values, errors, results }) {
 
 const onSubmit = handleSubmit((values, { resetForm })=>{
   return new Promise(resolve => {
-      emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      {
-        name: values.Name,
-        email: values.Email,
-        message: values.Message,
-        company: values.Company,
-        'g-recaptcha-response': values.RecaptchaToken
-      },
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    ).then(()=>{
+    axios.post('.netlify/functions/send-email', {
+      name: values.Name,
+      email: values.Email,
+      message: values.Message,
+      company: values.Company,
+      recaptchaToken: values.RecaptchaToken
+    }).then(()=>{
       $toast.success('Thank you for your message!')
     }).catch((err)=>{
       $toast.error('Something went wrong!')
